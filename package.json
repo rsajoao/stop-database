@@ -1,0 +1,39 @@
+{
+  "name": "stop-database",
+  "version": "1.0.0",
+  "description": "Uma pequena aplicação para guardar as respostas do jogo STOP (adedonha).",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rsajoao/stop-database.git"
+  },
+  "keywords": [
+    "backend",
+    "frontend",
+    "database",
+    "mysql",
+    "react",
+    "node",
+    "typescript"
+  ],
+  "author": "rsajoao",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rsajoao/stop-database/issues"
+  },
+  "homepage": "https://github.com/rsajoao/stop-database#readme",
+  "devDependencies": {
+    "@commitlint/cli": "^17.4.4",
+    "@commitlint/config-conventional": "^17.4.4",
+    "cz-conventional-changelog": "^3.3.0",
+    "husky": "^8.0.3"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  }
+}
