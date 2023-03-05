@@ -15,7 +15,8 @@ module.exports = {
       },
       rarity: {
         type: Sequelize.ENUM('rare', 'common', 'unknown'),
-        defaultValue: 'unknown'
+        defaultValue: 'unknown',
+        allowNull: false,
       },
       categoryId: {
         type: Sequelize.INTEGER,
@@ -28,6 +29,7 @@ module.exports = {
       },
       userId: {
         type: Sequelize.INTEGER,
+        allowNull: false,
         defaultValue: 0,
         references: { model: 'users', key: 'id' },
         onUpdate: 'CASCADE',
@@ -38,6 +40,7 @@ module.exports = {
       status: {
         type: Sequelize.ENUM('accepted', 'rejected', 'pending'),
         defaultValue: 'pending',
+        allowNull: false,
       },
       createdAt: {
         type: Sequelize.DATE,

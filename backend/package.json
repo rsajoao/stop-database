@@ -9,7 +9,7 @@
     "predev": "npm run build",
     "dev": "nodemon --watch \"./src/**\" ./src/App/server.ts",
     "build": "rm -rf dist && tsc",
-    "db:reset": "npx sequelize db:drop && npx sequelize db:create && npx sequelize db:migrate"
+    "db:reset": "npx sequelize db:drop && npx sequelize db:create && npx sequelize db:migrate && npx sequelize db:seed:all"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
