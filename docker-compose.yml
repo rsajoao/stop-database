@@ -1,0 +1,58 @@
+version: '3.9'
+
+services:
+  frontend:
+    container_name: sdb-frontend
+    build: ./frontend
+    ports:
+      - 3000:3000
+    platform: linux/x86_64
+    working_dir: /app-frontend
+    depends_on:
+      backend:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "lsof", "-t", "-i:3000"]
+      timeout: 10s
+      retries: 5
+    volumes:
+      - ./frontend:/app-frontend
+  backend:
+    container_name: sdb-backend
+    build: ./backend
+    ports:
+      - 3001:3001
+    platform: linux/x86_64
+    working_dir: /app-backend
+    depends_on:
+      database:
+        condition: service_healthy
+    environment:
+      - APP_PORT=${APP_PORT}
+      - JWT_SECRET=${JWT_SECRET}
+      - DB_USER=${DB_USER}
+      - DB_HOST=database
+      - DB_PORT=3306
+    healthcheck:
+      test: ["CMD", "lsof", "-t", "-i:3001"]
+      timeout: 10s
+      retries: 5
+    volumes:
+      - ./backend:/app-backend
+  database:
+    image: mysql:8.0.21
+    container_name: sdb-mysql
+    platform: linux/x86_64
+    ports:
+      - 3002:3306
+    environment:
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+    restart: 'always'
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      timeout: 10s
+      retries: 5
+    cap_add:
+      - SYS_NICE
+    volumes:
+    - ./database-volume:/var/lib/mysql
