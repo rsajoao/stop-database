@@ -42,6 +42,11 @@ module.exports = {
         defaultValue: 'pending',
         allowNull: false,
       },
+      visibility: {
+        type: Sequelize.ENUM('public', 'private'),
+        defaultValue: 'public',
+        allowNull: false,
+      },
       createdAt: {
         type: Sequelize.DATE,
         allowNull: false,

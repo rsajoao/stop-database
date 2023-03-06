@@ -39,7 +39,12 @@ Answer.init({
     type: DataTypes.ENUM('accepted', 'rejected', 'pending',),
     defaultValue: 'pending',
     allowNull: false,
-  }
+  },
+  visibility: {
+    type: DataTypes.ENUM('public', 'privated'),
+    defaultValue: 'public',
+    allowNull: false,
+  },
 }, {
   underscored: true,
   sequelize: db,
