@@ -5,6 +5,7 @@ import usernameValidation from '../Middlewares/usernameMiddleware';
 import passwordValidation from '../Middlewares/passwordMiddleware';
 import loginValidation from '../Middlewares/loginMiddleware';
 import authorization from '../Middlewares/authorization';
+import idValidation from '../Middlewares/idMiddleware';
 
 const UserRouter = Router();
 
@@ -37,6 +38,13 @@ UserRouter.get(
 UserRouter.get(
   '/users/:id',
   (req, res, next) => new UserController(req, res, next).getUsers(),
+);
+
+UserRouter.get(
+  '/users/:id/answers',
+  idValidation,
+  authorization,
+  (req, res, next) => new UserController(req, res, next).getUserAnswers(),
 );
 
 export default UserRouter;

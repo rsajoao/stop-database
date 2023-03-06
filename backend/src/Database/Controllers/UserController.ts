@@ -60,4 +60,15 @@ export default class UserController {
       this.next(error);
     }
   }
+
+  public async getUserAnswers() {
+    try {
+      const { params: { id }, body: { userToken: { id: tokenId } } } = this.req;
+      const userAnswers = await this.service.getUserAnswers(Number(id), tokenId);
+
+      return this.res.status(200).json(userAnswers);
+    } catch (error) {
+      this.next(error);
+    }
+  }
 }

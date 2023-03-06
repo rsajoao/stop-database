@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
-import { emailRegex } from './Regexes';
+import { emailRegex } from '../Utils/Regexes';
 
 export default function emailValidation(
   req: Request,

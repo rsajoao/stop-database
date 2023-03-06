@@ -1,12 +1,13 @@
-import UserModel from '../Models/UserModel';
-import IUser, { UserPayload } from '../Interface/UserInterface';
 import User from '../Models/UserModel';
+import IUser, { NewUser, UserPayload } from '../Interface/UserInterface';
 import { Op } from 'sequelize';
 import { createToken } from '../Auth/token';
 import { compareHash, generateHash } from '../Utils/bcryptjs';
+import Answer from '../Models/AnswerModel';
+import Category from '../Models/CategoryModel';
 
 export default class UserService {
-  constructor(private model = UserModel) { }
+  constructor(private model = User) { }
 
   private async doesUserExist(username: string, email: string): Promise<boolean> {
     const user = await this.model.findAll({ where: { [Op.or]: [{ username }, { email }] } });
@@ -15,7 +16,7 @@ export default class UserService {
     return false;
   }
 
-  public async createUser(username: string, email: string, password: string): Promise<IUser> {
+  public async createUser(username: string, email: string, password: string): Promise<NewUser> {
     if (await this.doesUserExist(username, email)){
       throw new Error('Username or email already in use');
     }
@@ -50,16 +51,41 @@ export default class UserService {
   }
 
   public async getUsers(id?: number): Promise<User[] | User> {
-    if (!id) {
-      const users = await this.model.findAll({ attributes: {
-        exclude: ['password', 'updatedAt'],
-      }});
-      return users as User[];
-    }
-    const user = await this.model.findByPk(id, { attributes: {
-      exclude: ['password', 'updatedAt'],
-    }});
+    let queryOptions: any = {}
 
-    return user as User;
+    if (id) {
+      queryOptions.where = { id };
+    };
+    queryOptions.attributes = ['id', 'username', 'email', 'role'];
+    queryOptions.order = [['id', 'ASC']];
+
+    const users = await this.model.findAll(queryOptions);
+
+    if (!users.length) throw new Error('User not found');
+
+    if (users.length === 1) return users[0] as User;
+
+    return users as User[];
+  }
+
+  public async getUserAnswers(id: number, tokenId: number) {
+    if (id !== tokenId) throw new Error('Unauthorized');
+  
+    const userAnswers = await this.model.findOne({
+      where: { id },
+      include: [{
+        model: Answer,
+        as: 'answers',
+        attributes: ['id', 'answer', 'visibility', 'status'],
+        include: [{
+          model: Category,
+          as: 'category',
+          attributes: ['id', 'name'],
+        }]
+      }],
+      attributes: ['id', 'username', 'email', 'role'],
+    });
+  
+    return userAnswers;
   }
 }

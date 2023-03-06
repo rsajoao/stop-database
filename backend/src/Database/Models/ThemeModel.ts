@@ -1,6 +1,6 @@
 import { DataTypes, Model } from 'sequelize';
+import Category from './CategoryModel'
 import db from '.';
-import Category from './CategoryModel';
 
 export default class Theme extends Model {
   declare id: number;
@@ -20,3 +20,4 @@ Theme.init({
   sequelize: db,
 });
 
+Theme.hasMany(Category, { foreignKey: 'themeId', as: 'categories'});

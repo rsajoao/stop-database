@@ -9,22 +9,27 @@ export default class {
   ) {
     let code: number;
 
-    const { message } = error;
+    const { message, stack } = error;
 
     switch (message) {
-      case 'Username or email already in use':
-        code = 409;
-        break;
-      case 'User not found':
-        code = 404;
-        break;
       case 'Incorrect password':
         code = 400;
+        break;
+      case 'Unauthorized':
+        code = 401;
+        break;
+      case 'User not found':
+      case 'Theme not found':
+        code = 404;
+        break;
+      case 'Username or email already in use':
+      case 'Theme already exists':
+        code = 409;
         break;
       default:
         code = 500;
     }
-    res.status(code).json({ message });
+    res.status(code).json({ message, stack });
     next();
   }
 }

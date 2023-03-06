@@ -1,7 +1,6 @@
 import { DataTypes, Model } from 'sequelize';
 import db from '.';
 import Category from './CategoryModel';
-import User from './UserModel';
 
 export default class Answer extends Model {
   declare id: number;
@@ -50,3 +49,5 @@ Answer.init({
   sequelize: db,
 });
 
+Answer.belongsTo(Category, { foreignKey: 'categoryId', as: 'category' });
+Category.hasMany(Answer, { foreignKey: 'categoryId', as: 'category' });

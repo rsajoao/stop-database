@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
-import { usernameRegex } from './Regexes';
+import { usernameRegex } from '../Utils/Regexes';
 
 export default function usernameValidation(
   req: Request,

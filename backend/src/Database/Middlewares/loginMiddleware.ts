@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
-import { emailRegex, usernameRegex } from './Regexes';
+import { emailRegex, usernameRegex } from '../Utils/Regexes';
 
 export default function loginValidation(
   req: Request,

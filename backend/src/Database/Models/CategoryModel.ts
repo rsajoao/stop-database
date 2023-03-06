@@ -1,7 +1,6 @@
 import { DataTypes, Model } from 'sequelize';
 import db from '.';
 import Answer from './AnswerModel';
-import Theme from './ThemeModel';
 
 export default class Category extends Model {
   declare id: number;
@@ -26,4 +25,3 @@ Category.init({
   underscored: true,
   sequelize: db,
 });
-
