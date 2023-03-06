@@ -18,7 +18,5 @@ Theme.init({
 }, {
   underscored: true,
   sequelize: db,
-  modelName: 'themes',
 });
 
-Theme.hasMany(Category, { foreignKey: 'themeId', as: 'categories' });

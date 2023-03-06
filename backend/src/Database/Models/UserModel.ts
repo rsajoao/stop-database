@@ -35,7 +35,5 @@ User.init({
 }, {
   underscored: true,
   sequelize: db,
-  modelName: 'users',
 });
 
-User.hasMany(Answer, { foreignKey: 'userId', as: 'userAnswers'});

@@ -25,8 +25,5 @@ Category.init({
 }, {
   underscored: true,
   sequelize: db,
-  modelName: 'categories'
 });
 
-Category.hasMany(Answer, { foreignKey: 'category_id', as: 'answers' });
-Category.belongsTo(Theme, { foreignKey: 'theme_id', as: 'theme' });

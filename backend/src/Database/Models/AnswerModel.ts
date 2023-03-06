@@ -43,8 +43,5 @@ Answer.init({
 }, {
   underscored: true,
   sequelize: db,
-  modelName: 'answers',
 });
 
-Answer.belongsTo(Category, { foreignKey: 'categoryId', as: 'category' });
-Answer.belongsTo(User, { foreignKey: 'userId', as: 'user' });

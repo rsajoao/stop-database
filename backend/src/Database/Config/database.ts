@@ -1,8 +1,6 @@
 import 'dotenv/config';
 import { Options } from 'sequelize';
 
-console.log(process.env.DB_PASS);
-
 const config: Options = {
   username: process.env.DB_USER,
   password: process.env.DB_PASS,
