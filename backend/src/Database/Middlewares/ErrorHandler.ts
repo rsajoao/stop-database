@@ -13,6 +13,7 @@ export default class {
 
     switch (message) {
       case 'Incorrect password':
+      case '"themeId" must be an integer number':
         code = 400;
         break;
       case 'Unauthorized':
@@ -20,10 +21,12 @@ export default class {
         break;
       case 'User not found':
       case 'Theme not found':
+      case 'Couldn\'t update':
         code = 404;
         break;
       case 'Username or email already in use':
       case 'Theme already exists':
+      case 'Category already exists':
         code = 409;
         break;
       default:

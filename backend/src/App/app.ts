@@ -1,6 +1,7 @@
 import * as express from 'express';
 import routers from '../Database/Routers';
 import ErrorHandler from '../Database/Middlewares/ErrorHandler';
+import { associateModels } from '../Database/Models/Associates';
 
 class App {
   public app: express.Express;
@@ -11,6 +12,7 @@ class App {
     this.config();
 
     this.app.get('/', (_req, res) => res.json({ ok: true }));
+    associateModels();
   }
 
   private config(): void {

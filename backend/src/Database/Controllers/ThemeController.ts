@@ -16,8 +16,18 @@ export default class ThemeController {
 
   public async getThemes() {
     try {
-      const { params: { id } } = this.req;
-      const themes = await this.service.getThemes(Number(id));
+      const { params: { id }, query: { showCategories } } = this.req;
+
+      let categories: boolean;
+
+      if (showCategories === 'true') {
+        categories = true;
+      } else {
+        categories = false;
+      }
+
+      const themes = await this.service.getThemes(Number(id), categories);
+
       return this.res.status(200).json(themes);
     } catch (error) {
       this.next(error);
@@ -26,8 +36,8 @@ export default class ThemeController {
 
   public async createTheme() {
     try {
-      const { body: { theme, userToken: { role } } } = this.req;
-      const newTheme = await this.service.createTheme(theme.toUpperCase(), role);
+      const { body: { name, userToken: { role } } } = this.req;
+      const newTheme = await this.service.createTheme(name, role);
 
       return this.res.status(201).json(newTheme);
     } catch (error) {
@@ -52,19 +62,7 @@ export default class ThemeController {
 
       await this.service.updateTheme(Number(id), role, { ...fields });
 
-      return this.res.status(204).json();
-    } catch (error) {
-      this.next(error);
-    }
-  }
-
-  public async getThemesWithCategories() {
-    try {
-      const { params: { id } } = this.req;
-
-      const themes = await this.service.getThemesWithCategories(Number(id));
-
-      return this.res.status(200).json(themes);
+      return this.res.status(200).json();
     } catch (error) {
       this.next(error);
     }

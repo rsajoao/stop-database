@@ -4,22 +4,25 @@ import Category from '../Models/CategoryModel';
 export default class ThemeService {
   constructor(private model = Theme) { }
 
-  public async getThemes(id?: number): Promise<Theme[] | Theme> {
+  public async getThemes(id?: number, categories: boolean = true): Promise<Theme | Theme[]> {
     let queryOptions: any = {};
-    if (id) {
-      queryOptions.where = { id };
+  
+    if (id) queryOptions.where = { id };
+    
+    if (categories) {
+      queryOptions.include = [ { model: Category, as: 'categories', attributes: ['id', 'name'] }];
     }
-
-    queryOptions.attributes = { exclude: ['createdAt', 'updatedAt'] };
+    
+    queryOptions.attributes = ['id', 'name'];
     queryOptions.order = [['id', 'ASC']];
-
+    
     const themes = await this.model.findAll(queryOptions);
-
+    
     if (!themes.length) throw new Error('Theme not found');
 
-    if (themes.length === 1) return themes[0] as Theme;
-    
-    return themes as Theme[];
+    if (themes.length === 1) return themes[0];
+  
+    return themes;
   }
 
   public async createTheme(theme: string, role: 'user' | 'admin'): Promise<Theme> {
@@ -44,34 +47,11 @@ export default class ThemeService {
   public async updateTheme(id: number, role: 'user' | 'admin', fields: Partial<Theme>): Promise<void> {
     if (role !== 'admin') throw new Error('Unauthorized');
 
+    const { id: _, ...rest } = fields;
+
     const [updated] = await this.model.update(
-      { ...fields },
-      { where: { id } },
+      { ...rest }, { where: { id } },
     );
     if (updated === 0) throw new Error('Coudn\'t update');
-  }
-
-  public async getThemesWithCategories(id?: number): Promise<Theme | Theme[]> {
-    let queryOptions: any = {};
-  
-    if (id) {
-      queryOptions.where = { id };
-    }
-
-    queryOptions.attributes = ['id', 'name'];
-    queryOptions.order = [['id', 'ASC']];
-    queryOptions.include = [{
-      model: Category,
-      as: 'categories',
-      attributes: ['id', 'name'],
-    }];
-
-    const themes = await this.model.findAll(queryOptions);
-    
-    if (!themes.length) throw new Error('Theme not found');
-
-    if (themes.length === 1) return themes[0];
-  
-    return themes;
   }
 }

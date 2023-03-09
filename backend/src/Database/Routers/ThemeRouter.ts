@@ -2,13 +2,14 @@ import { Router } from 'express';
 import ThemeController from '../Controllers/ThemeController';
 import authorization from '../Middlewares/authorization';
 import idValidation from '../Middlewares/idMiddleware';
-import fieldsValidation from '../Middlewares/themeMiddleware';
+import themeValidation from '../Middlewares/themeMiddleware';
 
 const ThemeRouter = Router();
 
 ThemeRouter.post(
   '/themes',
   authorization,
+  themeValidation,
   (req, res, next) => new ThemeController(req, res, next).createTheme(),
 );
 
@@ -22,29 +23,18 @@ ThemeRouter.delete(
 ThemeRouter.patch(
   '/themes/:id',
   idValidation,
-  fieldsValidation,
+  themeValidation,
   authorization,
   (req, res, next) => new ThemeController(req, res, next).updateTheme(),
 );
 
 ThemeRouter.get(
-  '/themes/categories',
-  (req, res, next) => new ThemeController(req, res, next).getThemesWithCategories(),
-);
-
-ThemeRouter.get(
-  '/themes/categories/:id',
-  (req, res, next) => new ThemeController(req, res, next).getThemesWithCategories(),
-);
-
-ThemeRouter.get(
-  '/themes',
+  '/themes/',
   (req, res, next) => new ThemeController(req, res, next).getThemes(),
 );
 
 ThemeRouter.get(
   '/themes/:id',
-  idValidation,
   (req, res, next) => new ThemeController(req, res, next).getThemes(),
 );
 

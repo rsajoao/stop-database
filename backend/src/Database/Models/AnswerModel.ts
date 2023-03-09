@@ -44,10 +44,11 @@ Answer.init({
     defaultValue: 'public',
     allowNull: false,
   },
+  letter: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  }
 }, {
   underscored: true,
   sequelize: db,
 });
-
-Answer.belongsTo(Category, { foreignKey: 'categoryId', as: 'category' });
-Category.hasMany(Answer, { foreignKey: 'categoryId', as: 'category' });

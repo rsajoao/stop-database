@@ -63,8 +63,8 @@ export default class UserController {
 
   public async getUserAnswers() {
     try {
-      const { params: { id }, body: { userToken: { id: tokenId } } } = this.req;
-      const userAnswers = await this.service.getUserAnswers(Number(id), tokenId);
+      const { params: { id }, body: { userToken: { id: tokenId, role } } } = this.req;
+      const userAnswers = await this.service.getUserAnswers(Number(id), tokenId, role);
 
       return this.res.status(200).json(userAnswers);
     } catch (error) {

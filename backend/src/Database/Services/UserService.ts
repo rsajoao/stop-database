@@ -68,8 +68,9 @@ export default class UserService {
     return users as User[];
   }
 
-  public async getUserAnswers(id: number, tokenId: number) {
-    if (id !== tokenId) throw new Error('Unauthorized');
+  public async getUserAnswers(id: number, tokenId: number, role: 'admin' | 'user') {
+    if (role !== 'admin' && (id !== tokenId)) throw new Error('Unauthorized');
+  
   
     const userAnswers = await this.model.findOne({
       where: { id },

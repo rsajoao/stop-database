@@ -10,6 +10,7 @@ module.exports = {
         rarity: 'unknown',
         status: 'accepted',
         visibility: 'public',
+        letter: 'A',
       },
       {
         answer: 'BOBINA',
@@ -18,6 +19,7 @@ module.exports = {
         rarity: 'rare',
         status: 'accepted',
         visibility: 'public',
+        letter: 'B',
       },
       {
         answer: 'CÂMERA',
@@ -26,6 +28,7 @@ module.exports = {
         rarity: 'common',
         status: 'accepted',
         visibility: 'public',
+        letter: 'C',
       },
       {
         answer: 'DVD PLAYER',
@@ -34,6 +37,7 @@ module.exports = {
         rarity: 'unknown',
         status: 'accepted',
         visibility: 'private',
+        letter: 'D',
       },
       {
         answer: 'BAFO',
@@ -42,6 +46,7 @@ module.exports = {
         rarity: 'unknown',
         status: 'accepted',
         visibility: 'private',
+        letter: 'B',
       },
       {
         answer: 'LEITE CONDENSADO',
@@ -50,6 +55,7 @@ module.exports = {
         rarity: 'common',
         status: 'accepted',
         visibility: 'public',
+        letter: 'L',
       },
       {
         answer: 'NUVEM',
@@ -58,6 +64,7 @@ module.exports = {
         rarity: 'unknown',
         status: 'rejected',
         visibility: 'public',
+        letter: 'N',
       },
       {
         answer: 'CABELEIRA DO ZEZÉ',
@@ -66,6 +73,7 @@ module.exports = {
         rarity: 'unknown',
         status: 'pending',
         visibility: 'private',
+        letter: 'C',
       },
       {
         answer: 'LUTINHA',
@@ -74,6 +82,7 @@ module.exports = {
         rarity: 'unknown',
         status: 'pending',
         visibility: 'public',
+        letter: 'L',
       },
       {
         answer: 'MELOCOTON',
@@ -82,6 +91,7 @@ module.exports = {
         rarity: 'unknown',
         status: 'pending',
         visibility: 'public',
+        letter: 'M',
       },
     ])
   },
